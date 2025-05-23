@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema Inteligente de Tráfico</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-black">
+  <!-- Encabezado -->
+  <header class="text-center py-12 px-4">
+    <h1 class="text-3xl md:text-5xl font-bold mb-4">Sistema Inteligente<br>de Gestión de Tráfico Basado<br>en IA para Reconocimiento y<br>Predicción de Trayectorias de Peatones</h1>
+    <p class="text-lg text-gray-600 mt-2">Calle Francisco I. Madero</p>
+  </header>
+
+  <!-- Video en vivo -->
+  <section class="flex justify-center mb-10">
+    <img id="video" src="/video_feed" alt="Detección en vivo" class="rounded-xl shadow-xl max-h-[480px] object-contain">
+  </section>
+
+  <!-- Estadísticas -->
+  <section class="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto text-center text-sm md:text-base">
+    <div>
+      <p class="font-semibold">Hora</p>
+      <p id="hora" class="text-gray-700">--:--</p>
+    </div>
+    <div>
+      <p class="font-semibold">Fecha</p>
+      <p id="fecha" class="text-gray-700">--/--/----</p>
+    </div>
+    <div>
+      <p class="font-semibold">Peatones Cruzando</p>
+      <p id="peatones" class="text-gray-700">0</p>
+    </div>
+    <div>
+      <p class="font-semibold">Peatones del día</p>
+      <p id="peatones_dia" class="text-gray-700">0</p>
+    </div>
+    <div>
+      <p class="font-semibold">Vehículos</p>
+      <p id="vehiculos" class="text-gray-700">0</p>
+    </div>
+    <div>
+      <p class="font-semibold">Usuarios de silla de ruedas</p>
+      <p id="sillas" class="text-gray-700">0</p>
+    </div>
+  </section>
+
+  <!-- JS para actualizar datos -->
+  <script>
+    function actualizarDatos() {
+      fetch('/api/stats')
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('hora').textContent = data.hora;
+          document.getElementById('fecha').textContent = data.fecha;
+          document.getElementById('peatones').textContent = data.peatones_cruzando;
+          document.getElementById('peatones_dia').textContent = data.peatones_dia;
+          document.getElementById('vehiculos').textContent = data.vehiculos;
+          document.getElementById('sillas').textContent = data.silla_ruedas;
+        })
+        .catch(err => console.error('Error al obtener datos:', err));
+    }
+
+    actualizarDatos();
+    setInterval(actualizarDatos, 5000); // Actualiza cada 5 segundos
+  </script>
+</body>
+</html>
