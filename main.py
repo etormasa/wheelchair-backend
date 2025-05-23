@@ -18,9 +18,8 @@ app.add_middleware(
 )
 
 # Resolución de pantalla
-monitor = get_monitors()[0]
-screen_width = monitor.width
-screen_height = monitor.height
+screen_width = 1280
+screen_height = 720
 
 # Modelos
 model_custom = YOLO("runs/detect/train/weights/best.pt")
