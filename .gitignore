@@ -12,12 +12,10 @@ __pycache__/
 /venv_nuevo/
 
 # Modelos y binarios
-*.pt
 *.pyd
 *.lib
 *.dll
 
 # Node modules y builds
 /sistema-trafico/node_modules/
-/dist/
-    
+/dist/    
